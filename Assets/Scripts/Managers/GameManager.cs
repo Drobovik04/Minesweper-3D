@@ -6,6 +6,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;
+using YG;
 
 namespace Assets.Scripts.Managers
 {
@@ -33,12 +34,16 @@ namespace Assets.Scripts.Managers
             GameEvents.OnGameFinished += HandleGameFinished;
             //GameEvents.OnGameReset += OnGameReset;
             GameEvents.OnPlayerHitMine += HandlePlayerHitMine;
+            YG2.onCloseRewardedAdv += OnRewardedClosed;
+            YG2.onErrorRewardedAdv += OnRewardedError;
         }
         private void OnDisable() 
         {
             GameEvents.OnGameFinished -= HandleGameFinished;
             //GameEvents.OnGameReset -= OnGameReset;
             GameEvents.OnPlayerHitMine -= HandlePlayerHitMine;
+            YG2.onCloseRewardedAdv -= OnRewardedClosed;
+            YG2.onErrorRewardedAdv -= OnRewardedError;
         }
 
         public void ReturnToMenu()
@@ -62,8 +67,10 @@ namespace Assets.Scripts.Managers
                 _pendingCellData = data;
                 _gameOverUI.ShowWithContinueOption("Boom!", "You are stepped on a mine. Continue?");
 
+#if UNITY_ANDROID && !UNITY_EDITOR
                 if (Core.GameSettings.VibrationEnabled)
                     Handheld.Vibrate();
+#endif
             }
             else
             {
@@ -72,8 +79,27 @@ namespace Assets.Scripts.Managers
         }
         public void OnWatchAdClicked()
         {
+#if UNITY_WEBGL
+            YG2.RewardedAdvShow("revive", OnRewardGranted);
+#else
             _adsManager.ShowRewarded(OnRewardGranted, OnAdFailed);
+#endif
         }
+
+        private void OnRewardedClosed()
+        {
+            if (!_continueUsed)
+            {
+                OnAdFailed();
+            }
+        }
+
+        private void OnRewardedError()
+        {
+            Debug.LogWarning($"[YG2] Error: failed to reward");
+            OnAdFailed();
+        }
+
         private void OnGameReset()
         {
             _continueUsed = false;
@@ -111,8 +137,8 @@ namespace Assets.Scripts.Managers
             {
                 Debug.Log("Game Over!");
 
-                if (Core.GameSettings.VibrationEnabled)
-                    Handheld.Vibrate();
+                //if (Core.GameSettings.VibrationEnabled)
+                //    Handheld.Vibrate();
             }
 
             _gameOverUI.Show(result);

@@ -61,6 +61,8 @@ namespace Assets.Scripts.Core
             GameEvents.OnGameFinished += DisableGameInput;
             GameEvents.OnGameReset += EnableGameInput;
             GameEvents.OnFullscreenAdActive += HandleFullscreenAdActive;
+            GameEvents.OnInfoShow += () => DisableGameInput(GameResult.Win); // странно, но вроде ничего не сломает потенциально
+            GameEvents.OnInfoHide += () => EnableGameInput();
             EnableGameInput();
         }
 
@@ -69,6 +71,8 @@ namespace Assets.Scripts.Core
             GameEvents.OnGameFinished -= DisableGameInput;
             GameEvents.OnGameReset -= EnableGameInput;
             GameEvents.OnFullscreenAdActive -= HandleFullscreenAdActive;
+            GameEvents.OnInfoShow -= () => DisableGameInput(GameResult.Win);
+            GameEvents.OnInfoHide -= () => EnableGameInput();
         }
 
         private void HandleFullscreenAdActive(bool active)
@@ -117,6 +121,10 @@ namespace Assets.Scripts.Core
 
         private void Update()
         {
+#if UNITY_WEBGL
+            //_isDragging = IsPointerPressed();
+#endif
+
             if (Mouse.current != null)
                 _cachedPointerPos = Mouse.current.position.ReadValue();
             else if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
@@ -167,6 +175,11 @@ namespace Assets.Scripts.Core
             Zoom(delta * 0.01f);
 
             _pinchDelta = currentDistance;
+        }
+
+        public void ZommClick(float value)
+        {
+            Zoom(value);
         }
 
         private void Zoom(float value)
@@ -381,10 +394,21 @@ namespace Assets.Scripts.Core
 
             Debug.Log("Game Over!");
 
-            if (GameSettings.VibrationEnabled)
-                Handheld.Vibrate();
+            //if (GameSettings.VibrationEnabled)
+            //    Handheld.Vibrate();
 
             GameEvents.RaiseGameFinished(GameResult.Lose);
+        }
+
+        private bool IsPointerPressed()
+        {
+            if (Mouse.current != null && Mouse.current.leftButton.isPressed)
+                return true;
+
+            if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+                return true;
+
+            return false;
         }
     }
 }

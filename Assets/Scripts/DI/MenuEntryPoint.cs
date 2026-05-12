@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer.Unity;
+using YG;
 
 namespace Assets.Scripts.DI
 {
@@ -27,6 +28,8 @@ namespace Assets.Scripts.DI
         {
             Debug.Log("Menu started");
             var settings = _dataControlService.Current.GameSettings;
+
+            YG2.GameReadyAPI();
         }
     }
 }

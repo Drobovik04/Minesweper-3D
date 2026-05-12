@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Scripting;
 using VContainer.Unity;
 
 namespace Assets.Scripts.DI
@@ -29,8 +30,9 @@ namespace Assets.Scripts.DI
             _dataControlService.Load();
 
             Debug.Log("Save loaded, switching scene");
-
+#if UNITY_ANDROID
             _adsManager.Initialize();
+#endif
 
             UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
         }

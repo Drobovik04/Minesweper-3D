@@ -325,7 +325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.View.CellView
   _hintView: {fileID: 5930166052108797917}
   _mineVisual: {fileID: 7586883222317585138}
-  _revealedColor: {r: 0.6832948, g: 0.71653616, b: 0.7830189, a: 1}
+  _revealedColor: {r: 0.6832948, g: 0.71653616, b: 0.84313726, a: 1}
   _neigbourColor: {r: 0.25882354, g: 0.36078432, b: 0.5411765, a: 1}
   _dimmedColor: {r: 0.13333334, g: 0.14901961, b: 0.1882353, a: 1}
   _revealedActiveColor: {r: 0.9490196, g: 0.95686275, b: 0.972549, a: 1}

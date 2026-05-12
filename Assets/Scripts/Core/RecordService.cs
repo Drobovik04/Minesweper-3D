@@ -56,9 +56,10 @@ namespace Assets.Scripts.Core
         public string GetRecordDisplay()
         {
             var r = _data.BestRecord;
-            if (r.MinesCount == 0) return "No record";
+            if (r.MinesCount == 0) return YG.YG2.lang == "en" ? "No record" : "Нет рекорда";
 
-            return $"Record: {r.FieldSize}³ | {r.MinesCount} mines | {r.FormattedTime} | {r.DateString}";
+            return YG.YG2.lang == "en" ? $"Fastest record: {r.FieldSize}³ | {r.MinesCount} mines | {r.FormattedTime} | {r.DateString}"
+                : $"Самый быстрый рекорд: {r.FieldSize}³ | {r.MinesCount} мин | {r.FormattedTime} | {r.DateString}";
         }
 
         public BestRecord GetCurrentRecord() => _data.BestRecord;

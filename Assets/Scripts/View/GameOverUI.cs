@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 namespace Assets.Scripts.View
 {
@@ -34,8 +35,17 @@ namespace Assets.Scripts.View
         {
             _panel.SetActive(true);
 
-            _titleText.text = result == GameResult.Win ? "Win!" : "Boom!";
-            _subtitleText.text = result == GameResult.Win ? "All cells are open" : "You are stepped on a mine";
+            if (result == GameResult.Win)
+            {
+                _titleText.text = YG2.lang == "en" ? "Win!" : "Победа!";
+                _subtitleText.text = YG2.lang == "en" ? "All cells are open" : "Все клетки открыты";
+            }
+            else
+            {
+                _titleText.text = YG2.lang == "en" ? "Boom!" : "Взрыв!";
+                _subtitleText.text = YG2.lang == "en" ? "You are stepped on a mine" : "Вы наступили на мину";
+            }
+
             _menuBtn.gameObject.SetActive(true);
             _restartBtn.gameObject.SetActive(true);
             _continueBtn.gameObject.SetActive(false);

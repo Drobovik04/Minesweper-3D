@@ -34,6 +34,12 @@ namespace Assets.Scripts.Core
             _minesInput.text = GameSettings.MineCount.ToString();
             _errorText.text = "";
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+            _mainMenuPanel.transform.Find("Settings").gameObject.SetActive(false);
+#else
+
+#endif
+
             ShowPanel(_mainMenuPanel);
 
             UpdateRecordDisplay();
@@ -76,12 +82,14 @@ namespace Assets.Scripts.Core
                 }
                 else
                 {
-                    _errorText.text = "Size: 3-8 | Mines: 1-" + (size * size * size - 1);
+                    _errorText.text = YG.YG2.lang == "en" ? "Size: 3-8 | Mines: 1-" + (size * size * size - 1) 
+                        : "Размер: 3-8 | Кол-во мин: 1-" + (size * size * size - 1);
                 }
             }
             else
             {
-                _errorText.text = "Enter correct numbers";
+                _errorText.text = YG.YG2.lang == "en" ? "Enter correct numbers"
+                    : "Введите корректное число";
             }
         }
 

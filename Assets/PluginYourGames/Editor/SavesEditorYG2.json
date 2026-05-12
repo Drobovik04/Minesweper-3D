@@ -1,0 +1,33 @@
+{
+    "stringKeys": [],
+    "stringValues": [],
+    "floatKeys": [],
+    "floatValues": [],
+    "intKeys": [
+        "Settings_Vibration",
+        "Settings_Size",
+        "Settings_Mines"
+    ],
+    "intValues": [
+        1,
+        5,
+        10
+    ],
+    "intExample": 5,
+    "strExample": "Hello!",
+    "boolExample": [
+        false,
+        false,
+        false,
+        false
+    ],
+    "idSave": 12,
+    "allData": {
+        "BestRecord": {
+            "FieldSize": 0,
+            "MinesCount": 0,
+            "ClearTime": 0.0,
+            "Timestamp": 0
+        }
+    }
+}

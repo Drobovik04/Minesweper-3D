@@ -14,10 +14,14 @@ namespace Assets.Scripts.Core
         public static event Action OnGameReset;
         public static event Action<CellView, CellData> OnPlayerHitMine;
         public static event Action<bool> OnFullscreenAdActive;
+        public static event Action OnInfoShow;
+        public static event Action OnInfoHide;
 
         public static void RaiseGameFinished(GameResult result) => OnGameFinished?.Invoke(result);
         public static void RaiseGameReset() => OnGameReset?.Invoke();
         public static void RaisePlayerHitMine(CellView cell, CellData data) => OnPlayerHitMine?.Invoke(cell, data);
         public static void RaiseFullscreenAdActive(bool active) => OnFullscreenAdActive?.Invoke(active);
+        public static void RaiseInfoShow() => OnInfoShow?.Invoke();
+        public static void RaiseInfoHide() => OnInfoHide?.Invoke();
     }
 }

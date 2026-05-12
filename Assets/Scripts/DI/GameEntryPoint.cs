@@ -13,8 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Scripting;
 using VContainer.Unity;
-using static UnityEngine.Rendering.STP;
 
 namespace Assets.Scripts.DI
 {
